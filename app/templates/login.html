@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>登录页</title>
+    <meta name="description" content="particles.js is a lightweight JavaScript library for creating particles.">
+    <meta name="author" content="Vincent Garreau"/>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" media="screen" href="{{ url_for('static', filename='assets/css/style.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='assets/css/reset.css') }}"/>
+</head>
+<body>
+{% for message in get_flashed_messages() %}
+    <div class="alert-danger" style="text-align: center">{{ message }}</div>
+{% endfor %}
+
+
+<div id="particles-js">
+    <div class="login">
+        <div class="login-top">
+            登录页面
+        </div>
+        <form action="" method="post">
+            <div class="login-center clearfix">
+                <div class="login-center-img"><img src="{{ url_for('static', filename='assets/img/name.png') }}"
+                                                   alt="img"/>
+                </div>
+                <div class="login-center-input">
+                    <input type="text" name="username" value="admin" placeholder="请输入您的用户名"
+                           onfocus="this.placeholder=''"
+                           onblur="this.placeholder='请输入您的用户名'"/>
+                    <div class="login-center-input-text">用户名</div>
+                </div>
+            </div>
+            <div class="login-center clearfix">
+                <div class="login-center-img"><img src="{{ url_for('static', filename='assets/img/password.png') }}"
+                                                   alt="img"/></div>
+                <div class="login-center-input">
+                    <input type="password" name="password" value="" placeholder="请输入您的密码" onfocus="this.placeholder=''"
+                           onblur="this.placeholder='请输入您的密码'"/>
+                    <div class="login-center-input-text">密码</div>
+                </div>
+            </div>
+            <button class="button">
+                登录
+            </button>
+        </form>
+    </div>
+
+</div>
+
+</body>
+</html>

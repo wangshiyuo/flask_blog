@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+
+{% block main %}
+
+<!-- 简介-->
+<div class="entry-content" style="background-color: #F0F0F0;padding: 10px 80px ">
+    <div class="single-content">
+        <img src="{{ url_for('static',filename="assets/img/personal.jpg") }}"
+             style="height: 500px;width: 300px; float: right">
+        <p><span style="color: #3399cc; font-size: 18pt;"><strong>博主简介</strong></span></p>
+        <p><strong>CN：安静</strong></p>
+        <p><strong>EN：ln</strong></p>
+        <p><strong>享受DEBUG的过程，努力提升自己！</strong>
+
+        <p><span style="color: #3399cc; font-size: 18pt;"><strong>2022成果</strong></span></p>
+        <p><strong>学习掌握HTML5、CSS、JavaScript、python、MySQL、redis</strong></p>
+        <p><strong>使用Python完成爬虫项目</strong></p>
+        <p><strong>Flask+SQLAlchemy搭建个人博客</strong></p>
+        <p><strong>git项目管理</strong></p>
+
+
+        <p><span style="color: #3399cc; font-size: 18pt;"><strong>2022目标</strong></span></p>
+        <p><strong>学习Tornado、matplotlib、Numpy、Pandas</strong></p>
+        <p><strong>深入学习数据库相关知识</strong></p>
+
+
+        <p><span style="color: #3399cc; font-size: 18pt;"><strong>联系方式</strong></span></p>
+        <p><strong>QQ：<a>1522843130</a></strong></p>
+        <p><strong>Github：<a href="https://github.com/wangshiyuo">wangshiyuo</a></strong></p>
+        <p><strong>邮箱：<a>wangshiyuo@foxmail.com</a></strong></p>
+    </div>
+</div>
+
+{% endblock main %}

@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>ln的博客</title>
+    <!-- favicon -->
+    <link rel=icon href="{{ url_for('static', filename='assets/img/touxiang.png') }}" sizes="20x20" type="image/png">
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="{{ url_for('static', filename="assets/css/bootstrap.min-v4.6.0.css") }}">
+    <!-- fontawesome -->
+    <link rel="stylesheet" href="{{ url_for('static', filename="assets/css/fontawesome.all.min-v5.15.3.css") }}">
+    <!-- lineawesome -->
+    <link rel="stylesheet" href="{{ url_for('static', filename="assets/css/line-awesome.min-v1.0.3.css") }}">
+    <!-- slick css -->
+    <link rel="stylesheet" href="{{ url_for('static', filename="assets/css/slick.min.css") }}">
+    <!-- animate css -->
+    <link rel="stylesheet" href="{{ url_for('static', filename="assets/css/animate.css") }}">
+    <!-- magnific popup css -->
+    <link rel="stylesheet" href="{{ url_for('static', filename="assets/css/magnific-popup.css") }}">
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="{{ url_for('static', filename="assets/css/main-style.css") }}">
+    <!-- responsive Stylesheet -->
+    <link rel="stylesheet" href="{{ url_for('static', filename="assets/css/responsive.css") }}">
+    {% block head %}{% endblock head %}
+</head>
+
+
+<body>
+
+<!-- nav area start -->
+<nav class="navbar navbar-area navbar-expand-lg has-topbar nav-style-01 index-01">
+    <div class="container nav-container custom-header-container">
+        <div class="responsive-mobile-menu">
+            <div class="logo-wrapper">
+                <a href="{{ url_for('web.index') }}" class="logo">
+                    <img src="{{ url_for('static', filename='assets/img/touxiang.jpg') }}" alt="logo" style="width: 56px;height: 56px">
+                    <a style="font-weight: bold;font-size: 18px; padding: 0 0 0 20px">ln</a>
+                </a>
+            </div>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#bizcoxx_main_menu"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+        <div class="collapse navbar-collapse" id="bizcoxx_main_menu">
+            <ul class="navbar-nav">
+                <li class=" current-menu-item">
+                    <a href="{{ url_for('web.index') }}">主页</a>
+                </li>
+                <li class="menu-item-has-children">
+                    <a href="{{ url_for('web.index') }}">博客</a>
+                    <ul class="sub-menu">
+                        <li><a href="{{ url_for('web.technology_blog') }}">技术分享</a></li>
+                        <li><a href="{{ url_for('web.life') }}">面对生活</a></li>
+                        <li><a href="{{ url_for('web.projects') }}">随笔杂谈</a></li>
+                    </ul>
+                </li>
+                <li class="menu-item-has-children">
+                    <a>相册</a>
+                    <ul class="sub-menu">
+                        <li><a href="{{ url_for('web.food') }}">美食</a></li>
+                        <li><a href="{{ url_for('web.travel') }}">旅游</a></li>
+                        <li><a href="{{ url_for('web.selfie') }}">自拍</a></li>
+                    </ul>
+                </li>
+                <li class="menu-item-has-children">
+                    <a>更多</a>
+                    <ul class="sub-menu">
+                        <li><a href="{{ url_for('web.back_index') }}">发布动态</a></li>
+                        <li><a href="{{ url_for('web.back_edit') }}">新建随笔</a></li>
+                        <li><a href="{{ url_for('web.back_list') }}">文章管理</a></li>
+                    </ul>
+                </li>
+                <li><a href="{{ url_for('web.personal') }}">关于</a></li>
+            </ul>
+        </div>
+        <div class="nav-right-content">
+            <ul>
+                <li class="account">
+                    <a href="{{ url_for('web.login') }}" id="search_icon">
+                        {% if user %}
+                            <li><a href="{{ url_for('web.logout') }}">注销</a></li>
+                        {% else %}
+                            <li><a href="{{ url_for('web.login') }}">后台登录</a></li>
+                        {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>
+<!-- navbar area end -->
+
+<!-- breadcrumb area start -->
+<div class="breadcrumb-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="breadcrumb-inner">
+                    <h2 class="page-title">{{ article_model.title }}</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- breadcrumb area end -->
+
+{% for message in get_flashed_messages() %}
+    <div class="alert-danger" style="text-align: center">{{ message }}</div>
+{% endfor %}
+
+<!-- blog details area start -->
+<div class="blog-details-area-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="content contact-1">
+                    <div class="post-meta">
+                        <ul class="list">
+                            <li class="list-item">
+                                <a href="#">
+                                    <i class="lar la-user icon"></i>
+                                    <span class="text">ln</span>
+                                </a>
+                            </li>
+                            <li class="list-item">
+                                <i class="lar la-clock icon"></i>
+                                <span class="text">{{ article_model.create_time }}</span>
+                            </li>
+                            <li class="list-item">
+                                <i class="las la-tag icon"></i>
+                                <span class="text">{{ article_model.label }}</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <p>{{ article_model.content|safe }}</p>
+                </div>
+
+                <!-- comment area start -->
+                <div class="comment-area">
+                    <h3 class="comment-section-title">评论区</h3>
+                    {% if article_model.commenarys %}
+                        {% for comment in article_model.commenarys %}
+                            <ul class="comment-list">
+                                <li>
+                                    <div class="single-comment-wrap">
+                                        <div class="content">
+                                            <div class="content-top">
+                                                <div class="left">
+                                                    <h4 class="title">{{ comment.name }}</h4>
+                                                    <ul class="post-meta">
+                                                        <li class="meta-item">
+                                                            <i class="las la-calendar icon"></i>
+                                                            {{ comment.create_time }}
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <p class="comment">{{ comment.content }}</p>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        {% endfor %}
+                    {% else %}
+                        <ul class="comment-list">
+                            <li>
+                                <div class="single-comment-wrap">
+                                    <div class="content">
+                                        <div class="content-top">
+                                            <div class="left">
+                                                <h4 class="title"></h4>
+                                                <ul class="post-meta">
+                                                    <li class="meta-item">
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <p class="comment">暂无评论</p>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    {% endif %}
+
+                    <!-- comment form area start -->
+                    <div class="comment-form-area">
+                        <h3 class="comment-section-title">发送你的评论</h3>
+
+                        <form action="{{ url_for('web.commentaries') }}" class="comment-form" method="post">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <input name="name" type="text" class="form-control" placeholder="输入你的名字"
+                                               required="required">
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                            <textarea name="commentary" id="message" class="form-control"
+                                                      placeholder="输入评论内容" cols="30" rows="10"
+                                                      required="required"></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="btn-wrapper">
+                                        <button type="submit" class="btn-default" name="article_id"
+                                                value="{{ article_model.id }}">评论
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- comment form area end -->
+                </div>
+                <!-- comment area end -->
+            </div>
+
+            <div class="col-md-6 col-lg-4 col-xl-3 widg">
+                <div class="widget-area-wrapper style-02">
+                    <div class="widget widget-search">
+                        <form class="form-inline" action="{{ url_for('web.search') }}" method="get">
+                            <div class="form-group">
+                                <input name="q" type="search" class="form-control" placeholder="输入查找关键字">
+                            </div>
+                            <button type="submit" class="form-btn-1"><i class="fas fa-search"></i></button>
+                        </form>
+                    </div>
+                    <div class="widget widget-recent-post">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <h3 class="widget-title">ln 最新动态</h3>
+                            </div>
+                            <div>
+                                {{ activity }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="widget widget-recent-post">
+                        <h5 class="widget-title">阅读排行</h5>
+                        {% for temp_num_read in num_read %}
+                            <ul class="post-list">
+                                <li>
+                                    <div>
+                                        <a href="{{ url_for('web.detail',article_id=temp_num_read.id) }}">{{ temp_num_read.title }}<span
+                                                class="badge">({{ temp_num_read.read_times }})</span></a>
+                                    </div>
+                                </li>
+                            </ul>
+                        {% endfor %}
+                    </div>
+                    <div class="widget widget-category">
+                        <h5 class="widget-title">文章分类</h5>
+                        <ul class="list">
+                            <li>
+                                <a href="{{ url_for('web.technology_blog') }}">
+                                    <span class="name">技术博客</span>
+                                    <span class="number">({{ num_article }})</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ url_for('web.projects') }}">
+                                    <span class="name">随笔杂谈</span>
+                                    <span class="number">({{ num_project }})</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ url_for('web.life') }}">
+                                    <span class="name">面对生活</span>
+                                    <span class="number">({{ num_life }})</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="widget widget-tag">
+                        <h5 class="widget-title">标签</h5>
+                        <div class="tag-wrapper">
+                            <a href="#" class="btn-tag">food</a>
+                            <a href="#" class="btn-tag">travel</a>
+                            <a href="#" class="btn-tag">music</a>
+                            <a href="#" class="btn-tag">python</a>
+                            <a href="#" class="btn-tag">js</a>
+                            <a href="#" class="btn-tag">html</a>
+                            <a href="#" class="btn-tag">css</a>
+                            <a href="#" class="btn-tag">mysql</a>
+                            <a href="#" class="btn-tag">redis</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- blog details area end -->
+
+<!-- footer area start -->
+<footer class="footer-area index-01">
+    <div class="footer-bottom">
+        <div class="copyright-area">
+            <div class="container custom-container-1515">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="copyright-area-inner">
+                            <div class="left-content">
+                                <p class="copyright">Privacy Policy | Terms & Conditions</p>
+                            </div>
+                            <div class="right-content">
+                                <p class="copyright"><a href="https://beian.miit.gov.cn">Copyright 2022 by ln
+                                    备案号：豫ICP备2022007184号 </a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- footer area end -->
+
+<!-- back to top area start -->
+<div class="scroll-to-top">
+    <i class="fas fa-angle-up"></i>
+</div>
+<!-- back to top area end -->
+
+<!-- jquery -->
+<script src="{{ url_for('static',filename='assets/js/jquery-3.6.0.min.js') }}"></script>
+<!-- jquery migrate -->
+<script src="{{ url_for('static',filename='assets/js/jquery-migrate-3.3.2.js') }}"></script>
+<!-- bootstrap -->
+<script src="{{ url_for('static',filename='assets/js/bootstrap.min-v4.6.0.js') }}"></script>
+<!-- slick js -->
+<script src="{{ url_for('static',filename='assets/js/slick.min.js') }}"></script>
+<!-- wow js -->
+<script src="{{ url_for('static',filename='assets/js/wow.js') }}"></script>
+<!-- magnific popup js -->
+<script src="{{ url_for('static',filename='assets/js/jquery.magnific-popup.min.js') }}"></script>
+<!-- popper -->
+<script src="{{ url_for('static',filename='assets/js/popper.min.js') }}"></script>
+<!-- main js -->
+<script src="{{ url_for('static',filename='assets/js/main.js') }}"></script>
+
+</body>
+
+</html>

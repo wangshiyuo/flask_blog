@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+
+{% block main %}
+
+    <main class="col-md-8 main-content">
+        {% for article in articles %}
+            <div class="single-blog-list-1-index-1">
+                <div class="content-top">
+                    <span class="first-word space-style">{{ article.label }}</span>
+                    <h2 class="title">
+                        <a href="{{ url_for('web.detail',article_id = article.id) }}">{{ article.title }}</a>
+                    </h2>
+                    <div class="content-bottom">
+                        <p class="info">{{ article.content|truncate(200)|safe }}</p>
+                        <div class="post-meta">
+                            <div class="left-content">
+                                <div class="btn-wrapper">
+                                    <a href="{{ url_for('web.detail',article_id = article.id) }}" class="reading-btn">阅读更多</a>
+                                </div>
+                            </div>
+                            <div class="right-content">
+                                <ul class="list">
+                                    <li class="list-item">
+                                        <a href="#">
+                                            <i class="far fa-user icon"></i>
+                                            <span class="text">ln</span>
+                                        </a>
+                                    </li>
+                                    <li class="list-item">
+                                        <a href="#">
+                                            <i class="far fa-clock icon"></i>
+                                            <span class="text">{{ article.create_time }}</span>
+                                        </a>
+                                    </li>
+                                    <li class="list-item">
+                                        <a href="#">
+                                            <i class="far fa-share-square icon"></i>
+                                            <span class="text">分享</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </main>
+
+{% endblock main %}
+
+
+
+

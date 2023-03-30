@@ -3,7 +3,7 @@ from app.libs.get_content import get_project
 from . import web
 
 
-#随笔杂谈页
+# 随笔杂谈页
 @web.route('/projects/')
 def projects():
     page = request.args.get('page', 1, type=int)
